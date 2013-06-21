@@ -98,8 +98,11 @@ function save_bulk_edit_video() {
 
 	if ( ! empty( $post_ids ) && is_array( $post_ids ) ) {
 		foreach ( $post_ids as $post_id ) {
-			update_post_meta( $post_id, 'additional_copies', $additional_copies );
-			update_post_meta( $post_id, 'main_credits', $main_credits );
+			if ( ! empty( $additional_copies ) )
+				update_post_meta( $post_id, 'additional_copies', $additional_copies );
+
+			if ( ! empty( $main_credits ) )
+				update_post_meta( $post_id, 'main_credits', $main_credits );
 		}
 	}
 
