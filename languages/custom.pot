@@ -1,0 +1,213 @@
+# Copyright (C) 2010 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version:  \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/custom\n"
+"POT-Creation-Date: 2011-10-09 15:04:46+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: lib/admin.php:27
+msgid "Maintenance, please come back soon."
+msgstr ""
+
+#: lib/archives.php:48
+msgid "See the rest of"
+msgstr ""
+
+#: lib/authors.php:20
+msgid "Articles by"
+msgstr ""
+
+#: lib/authors.php:38
+msgid "written"
+msgstr ""
+
+#: lib/authors.php:39
+msgid "authored"
+msgstr ""
+
+#: lib/authors.php:40
+msgid "completed"
+msgstr ""
+
+#: lib/authors.php:41
+msgid "composed"
+msgstr ""
+
+#: lib/authors.php:42
+msgid "indited"
+msgstr ""
+
+#: lib/authors.php:43
+msgid "inscribed"
+msgstr ""
+
+#: lib/authors.php:44
+msgid "jotted down"
+msgstr ""
+
+#: lib/authors.php:45
+msgid "penned"
+msgstr ""
+
+#: lib/authors.php:46
+msgid "posted"
+msgstr ""
+
+#: lib/authors.php:47
+msgid "published"
+msgstr ""
+
+#: lib/authors.php:53
+msgid "awesome"
+msgstr ""
+
+#: lib/authors.php:54
+msgid "admirable"
+msgstr ""
+
+#: lib/authors.php:55
+msgid "awe-inspiring"
+msgstr ""
+
+#: lib/authors.php:56
+msgid "excellent"
+msgstr ""
+
+#: lib/authors.php:57
+msgid "extremely good"
+msgstr ""
+
+#: lib/authors.php:58
+msgid "extremely impressive"
+msgstr ""
+
+#: lib/authors.php:59
+msgid "fabulous"
+msgstr ""
+
+#: lib/authors.php:60
+msgid "great"
+msgstr ""
+
+#: lib/authors.php:61
+msgid "impressive"
+msgstr ""
+
+#: lib/authors.php:62
+msgid "terrific"
+msgstr ""
+
+#: lib/authors.php:63
+msgid "wonderous"
+msgstr ""
+
+#: lib/authors.php:74
+msgid "has"
+msgstr ""
+
+#: lib/authors.php:82
+msgid "articles at"
+msgstr ""
+
+#: lib/authors.php:84
+msgid "http://typovagabond.com"
+msgstr ""
+
+#: lib/authors.php:86
+msgid "TYPO3 Vagabond"
+msgstr ""
+
+#: lib/comments.php:17
+msgid "Login with..."
+msgstr ""
+
+#: lib/exif.php:50
+msgid "Attachment Details"
+msgstr ""
+
+#: lib/exif.php:70
+msgid "pixels"
+msgstr ""
+
+#: lib/exif.php:79
+msgid "seconds"
+msgstr ""
+
+#: lib/functions.php:54
+msgid " And "
+msgstr ""
+
+#: lib/functions.php:54
+msgid " and "
+msgstr ""
+
+#: lib/functions.php:55
+msgid " Or "
+msgstr ""
+
+#: lib/functions.php:55
+msgid " or "
+msgstr ""
+
+#: lib/GT_Breadcrumbs2.php:12
+msgid "Archive"
+msgstr ""
+
+#: lib/GT_Breadcrumbs2.php:13
+msgid "Author"
+msgstr ""
+
+#: lib/GT_Breadcrumbs2.php:14
+msgid "Category"
+msgstr ""
+
+#: lib/GT_Breadcrumbs2.php:15
+msgid "Not Found"
+msgstr ""
+
+#: lib/GT_Breadcrumbs2.php:16
+msgid "Home"
+msgstr ""
+
+#: lib/GT_Breadcrumbs2.php:17
+msgid "Search"
+msgstr ""
+
+#: lib/GT_Breadcrumbs2.php:18
+msgid "/"
+msgstr ""
+
+#: lib/GT_Breadcrumbs2.php:20
+msgid "Tag"
+msgstr ""
+
+#: lib/posts.php:31
+msgid "in"
+msgstr ""
+
+#: lib/posts.php:34
+msgid "on"
+msgstr ""
+
+#: lib/posts.php:44
+msgid "0 comments"
+msgstr ""
+
+#: lib/posts.php:44
+msgid "1 comment"
+msgstr ""
+
+#: lib/posts.php:44
+msgid "% comments"
+msgstr ""
+
+#: lib/posts.php:80
+msgid "Posted on:"
+msgstr ""
