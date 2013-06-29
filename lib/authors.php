@@ -16,10 +16,15 @@
 
 
 function gettext_mbr( $translated ) {
-	// why is this so dificult to figure what post_type we're currently on?
-	$post_type					= isset( $_GET['post_type'] ) ? esc_attr( $_GET['post_type'] ) : get_the_ID() ? get_post_type( get_the_ID() ) : 'post';
+	static $do_it;
 
-	if ( 'post' == $post_type )
+	if ( is_null( $do_it ) ) {
+		// why is this so dificult to figure what post_type we're currently on?
+		$post_type = isset( $_GET['post_type'] ) ? esc_attr( $_GET['post_type'] ) : get_the_ID() ? get_post_type( get_the_ID() ) : false;
+		$do_it     = in_array( $post_type, array( 'video', 'document' ) );
+	}
+
+	if ( ! $do_it )
 		return $translated;
 
 	// $producers					= __( 'Cataloguer', 'custom' );
