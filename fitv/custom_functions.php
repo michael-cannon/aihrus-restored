@@ -36,7 +36,6 @@ require_once( __DIR__ . '/functions.php' );
 define( 'EMPTY_TRASH_DAYS', 30 );
 
 // admin
-add_action( 'admin_init', 'fitv_admin_init' );
 add_action( 'admin_init', 'own_admin_init' );
 add_action('admin_menu', 'mb_wpzoom_options_box');
 
@@ -133,7 +132,7 @@ $locale_file					= TEMPLATEPATH . "/languages/$locale.php";
 if ( is_readable( $locale_file ) )
 	require_once( $locale_file );
 
-require_once 'video-quick-edit.php';
+// require_once 'video-quick-edit.php';
 
 global $mp;
 remove_action( 'manage_posts_custom_column', array(&$mp, 'manage_orders_custom_columns') );

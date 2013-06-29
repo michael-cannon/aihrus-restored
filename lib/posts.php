@@ -121,8 +121,10 @@ function wp_embed_handler_gist( $matches, $attr, $url, $rawattr ) {
 }
 function custom_meta_sidebar( $post, $parts ) {
 	foreach( $parts as $part => $title ) {
-		// $value					= get_post_meta($post->ID, $part, true);
-		$value					= custom_manage_posts_custom_column( $part, $post->ID, false );
+		if ( ! function_exists( 'custom_manage_posts_custom_column' ) )
+			$value = get_post_meta($post->ID, $part, true);
+		else
+			$value = custom_manage_posts_custom_column( $part, $post->ID, false );
 
 		if ( ! empty( $value ) ) {
 			echo '<div class="section">';
