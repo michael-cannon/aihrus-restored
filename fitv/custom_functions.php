@@ -141,8 +141,7 @@ add_action( 'manage_product_posts_custom_column', array(&$mp, 'manage_orders_cus
 remove_action( 'manage_posts_custom_column', array(&$mp, 'edit_products_custom_columns') );
 add_action( 'manage_product_posts_custom_column', array(&$mp, 'edit_products_custom_columns') );
 
-if ( in_array( get_post_type( get_the_ID() ), array( 'video', 'document' ) ) ) {
-	add_action( 'the_content', 'fitv_vzaar_chapters' );
+if ( in_array( get_post_type( get_the_ID() ), array( 'video', 'document' ) ) || ( isset( $_GET['post_type'] ) && in_array( $_GET['post_type'], array( 'video', 'document' ) ) ) ) {
 	add_filter( 'get_terms', 'admin_get_terms', 10, 3 );
 	add_filter( 'gettext', 'gettext_mbr' );
 	add_filter( 'ngettext', 'gettext_mbr' );
@@ -151,4 +150,6 @@ if ( in_array( get_post_type( get_the_ID() ), array( 'video', 'document' ) ) ) {
 	add_filter( 'posts_where', 'fitv_admin_posts_where' );
 	add_filter( 'wp_dropdown_users', 'fitv_wp_dropdown_users' );
 }
+
+add_action( 'the_content', 'fitv_vzaar_chapters' );
 ?>
