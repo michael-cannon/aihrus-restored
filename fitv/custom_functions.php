@@ -33,7 +33,8 @@ require_once( __DIR__ . '/../lib/widgets.php' );
 
 require_once( __DIR__ . '/functions.php' );
 
-define( 'EMPTY_TRASH_DAYS', 30 );
+if ( ! defined( 'EMPTY_TRASH_DAYS' ) )
+	define( 'EMPTY_TRASH_DAYS', 30 );
 
 // admin
 add_action( 'admin_init', 'own_admin_init' );
@@ -141,7 +142,7 @@ add_action( 'manage_product_posts_custom_column', array(&$mp, 'manage_orders_cus
 remove_action( 'manage_posts_custom_column', array(&$mp, 'edit_products_custom_columns') );
 add_action( 'manage_product_posts_custom_column', array(&$mp, 'edit_products_custom_columns') );
 
-if ( in_array( get_post_type( get_the_ID() ), array( 'video', 'document' ) ) || ( isset( $_GET['post_type'] ) && in_array( $_GET['post_type'], array( 'video', 'document' ) ) ) ) {
+if ( ( have_posts() && in_array( get_post_type( get_the_ID() ), array( 'video', 'document' ) ) ) || ( isset( $_GET['post_type'] ) && in_array( $_GET['post_type'], array( 'video', 'document' ) ) ) ) {
 	add_filter( 'get_terms', 'admin_get_terms', 10, 3 );
 	add_filter( 'gettext', 'gettext_mbr' );
 	add_filter( 'ngettext', 'gettext_mbr' );
