@@ -331,8 +331,7 @@ class Fitv_Theme {
 	}
 
 	function vzaarPlayerReady() {
-		/* setTimeout( beginPlayingVideo, 1250 ); */
-		setTimeout( beginPlayingVideo, 2500 );
+		setTimeout( beginPlayingVideo, 1250 );
 	}
 
 	{$zeroClipboardJS}
