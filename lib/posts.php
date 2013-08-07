@@ -139,7 +139,8 @@ function custom_meta_sidebar( $post, $parts ) {
 
 function custom_get_the_terms( $post, $taxonomy ) {
 	// get the terms related to post
-	$terms = get_the_terms( $post->ID, $taxonomy );
+	$return = '';
+	$terms  = get_the_terms( $post->ID, $taxonomy );
 	if ( !empty( $terms ) ) {
 		$out = array();
 		foreach ( $terms as $term )

@@ -20,8 +20,15 @@ function gettext_mbr( $translated ) {
 
 	if ( is_null( $do_it ) ) {
 		// why is this so dificult to figure what post_type we're currently on?
-		$post_type = isset( $_GET['post_type'] ) ? esc_attr( $_GET['post_type'] ) : get_the_ID() ? get_post_type( get_the_ID() ) : false;
-		$do_it     = in_array( $post_type, array( 'video', 'document' ) );
+		$post_type = isset( $_GET['post_type'] ) ? esc_attr( $_GET['post_type'] ) : false;
+		if ( ! $post_type ) {
+			global $post;
+			if ( ! is_null( $post ) )
+				$post_type = get_the_ID() ? get_post_type( get_the_ID() ) : false;
+		}
+
+		if ( $post_type )
+			$do_it     = in_array( $post_type, array( 'video', 'document' ) );
 	}
 
 	if ( ! $do_it )
