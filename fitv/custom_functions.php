@@ -154,5 +154,7 @@ if ( ( have_posts() && in_array( get_post_type( get_the_ID() ), array( 'video', 
 
 add_action( 'the_content', 'fitv_vzaar_chapters' );
 
-remove_action('save_post', 'custom_add_save');
+remove_action( 'save_post', 'custom_add_save' );
+add_action( 'save_post', 'mbi_save_post' );
+
 ?>
