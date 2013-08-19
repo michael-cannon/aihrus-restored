@@ -15,7 +15,7 @@ require_once( __DIR__ . '/../lib/attachments.php' );
 // require_once( __DIR__ . '/../lib/define.php' );
 require_once( __DIR__ . '/../lib/debug.php' );
 // require_once( __DIR__ . '/../lib/excerpts.php' );
-// require_once( __DIR__ . '/../lib/gallery.php' );
+require_once( __DIR__ . '/../lib/gallery.php' );
 // require_once( __DIR__ . '/../lib/javascript.php' );
 // require_once( __DIR__ . '/../lib/pages.php' );
 require_once( __DIR__ . '/../lib/posts.php' );
@@ -73,8 +73,8 @@ remove_filter('wp_generate_attachment_metadata', 'wp_smushit_resize_from_meta_da
 // add_filter( 'the_content', 'custom_call_to_action', 29 );
 
 // gallery
-// remove_shortcode('gallery', 'gallery_shortcode');
-// add_shortcode('gallery', 'custom_gallery_shortcode');
+remove_shortcode('gallery', 'gallery_shortcode');
+add_shortcode('gallery', 'custom_gallery_shortcode');
 
 // authors
 // add_filter( 'gettext', 'gettext_mbr' );
@@ -114,42 +114,13 @@ add_shortcode( 'field', 'shortcode_field' );
 
 // testimonails
 // add_filter( 'testimonials_widget_disable_cache', function() { return false; } );
-add_filter( 'testimonials_widget_defaults', 'a2_testimonials_widget_defaults' );
-add_filter( 'testimonials_widget_defaults_single', 'a2_testimonials_widget_defaults_single' );
-
-
-function a2_testimonials_widget_defaults( $args ) {
-	if ( empty( $args['hide_email'] ) )
-		$args['hide_email']		= 'true';
-
-	return $args;
-}
-
-
-function a2_testimonials_widget_defaults_single( $args ) {
-	if ( empty( $args['hide_image'] ) )
-		$args['hide_image']		= 'true';
-
-	return a2_testimonials_widget_defaults( $args );
-}
-
 
 // thumbnails
 add_theme_support( 'post-thumbnails' );
-add_image_size( 'Slide', 940, 350, true );
+// add_image_size( 'Slide', 940, 350, true );
 
 // add_filter( 'the_excerpt', 'prepend_post_thumbnail' );
-add_filter( 'the_excerpt', 'a2_prepend_post_thumbnail' );
-add_filter( 'the_content', 'prepend_post_thumbnail', 1 );
-
-function a2_prepend_post_thumbnail( $content ) {
-	// wtfami();
-
-	if ( ! is_front_page() && ! is_home() )
-		return prepend_post_thumbnail( $content );
-
-	return $content;
-}
+// add_filter( 'the_content', 'prepend_post_thumbnail', 1 );
 
 // users
 add_filter( 'user_contactmethods','custom_user_contactmethods' ); if ( is_admin() ) {
@@ -186,16 +157,9 @@ function pre_get_posts_allow_testimonials_widget( $query ) {
 	return $query;
 }
 
-if ( is_page( 15901 ) ) {
+if ( false && is_page( 15901 ) ) {
 	remove_filter( 'the_content', 'auto_sociable' );
 	remove_filter( 'the_excerpt', 'auto_sociable' );
 }
-
-add_filter( 'wp_new_user_notification_html', '__return_true' );
-
-# security
-add_filter( 'login_errors', create_function( '$a', 'return null;' ) );
-remove_action('wp_head', 'wp_generator');
-
 
 ?>

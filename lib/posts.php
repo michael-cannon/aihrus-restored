@@ -121,8 +121,10 @@ function wp_embed_handler_gist( $matches, $attr, $url, $rawattr ) {
 }
 function custom_meta_sidebar( $post, $parts ) {
 	foreach( $parts as $part => $title ) {
-		// $value					= get_post_meta($post->ID, $part, true);
-		$value					= custom_manage_posts_custom_column( $part, $post->ID, false );
+		if ( ! function_exists( 'custom_manage_posts_custom_column' ) )
+			$value = get_post_meta($post->ID, $part, true);
+		else
+			$value = custom_manage_posts_custom_column( $part, $post->ID, false );
 
 		if ( ! empty( $value ) ) {
 			echo '<div class="section">';
@@ -137,7 +139,8 @@ function custom_meta_sidebar( $post, $parts ) {
 
 function custom_get_the_terms( $post, $taxonomy ) {
 	// get the terms related to post
-	$terms = get_the_terms( $post->ID, $taxonomy );
+	$return = '';
+	$terms  = get_the_terms( $post->ID, $taxonomy );
 	if ( !empty( $terms ) ) {
 		$out = array();
 		foreach ( $terms as $term )

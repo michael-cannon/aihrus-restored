@@ -33,13 +33,13 @@ require_once( __DIR__ . '/../lib/widgets.php' );
 
 require_once( __DIR__ . '/functions.php' );
 
-define( 'EMPTY_TRASH_DAYS', 30 );
+if ( ! defined( 'EMPTY_TRASH_DAYS' ) )
+	define( 'EMPTY_TRASH_DAYS', 30 );
 
 // admin
-add_action( 'admin_init', 'fitv_admin_init' );
 add_action( 'admin_init', 'own_admin_init' );
 add_action('admin_menu', 'mb_wpzoom_options_box');
-add_filter( 'wp_dropdown_users', 'fitv_wp_dropdown_users' );
+
 remove_action('admin_menu', 'wpzoom_options_box');
 
 if ( ! current_user_can('administrator') ) {
@@ -60,13 +60,11 @@ add_filter( 'wp_generate_attachment_metadata', 'add_attachment_post_tags', '', 2
 add_filter( 'wp_read_image_metadata', 'read_all_image_metadata', '', 3 );
 remove_filter('wp_generate_attachment_metadata', 'wp_smushit_resize_from_meta_data');
 
+// authors
+
 // gallery
 add_shortcode('gallery', 'custom_gallery_shortcode');
 remove_shortcode('gallery', 'gallery_shortcode');
-
-// authors
-add_filter( 'gettext', 'gettext_mbr' );
-add_filter( 'ngettext', 'gettext_mbr' );
 
 // excerpts
 // add_filter( 'get_the_excerpt', 'excerpt_read_more' );
@@ -76,7 +74,6 @@ add_filter( 'get_the_excerpt', 'excerpt_remove_social' );
 
 // posts
 add_action( 'pre_ping', 'disable_self_ping' );
-add_action( 'the_content', 'fitv_vzaar_chapters' );
 add_action( 'wp_enqueue_scripts', 'fitv_vzaar_chapters_scripts' );
 add_image_size( 'wpzoom-feat-cat', 60, 45, true );
 add_image_size( 'wpzoom-slider', 135, 98, true );
@@ -116,12 +113,8 @@ if ( is_admin() ) {
 }
 
 // query mods
-add_filter( 'get_terms', 'admin_get_terms', 10, 3 );
-add_filter( 'posts_distinct', 'fitv_admin_posts_distinct' );
 add_filter( 'posts_fields', 'fitv_admin_posts_fields' );
-add_filter( 'posts_join', 'fitv_admin_posts_join' );
 add_filter( 'posts_orderby', 'fitv_admin_posts_orderby' );
-add_filter( 'posts_where', 'fitv_admin_posts_where' );
 add_filter( 'pre_get_posts', 'posts_for_current_author' );
 add_filter( 'pre_get_posts', 'pre_get_posts_allow_video_document' );
 
@@ -140,5 +133,28 @@ $locale_file					= TEMPLATEPATH . "/languages/$locale.php";
 if ( is_readable( $locale_file ) )
 	require_once( $locale_file );
 
-require_once 'video-quick-edit.php';
+// require_once 'video-quick-edit.php';
+
+global $mp;
+remove_action( 'manage_posts_custom_column', array(&$mp, 'manage_orders_custom_columns') );
+add_action( 'manage_product_posts_custom_column', array(&$mp, 'manage_orders_custom_columns') );
+
+remove_action( 'manage_posts_custom_column', array(&$mp, 'edit_products_custom_columns') );
+add_action( 'manage_product_posts_custom_column', array(&$mp, 'edit_products_custom_columns') );
+
+if ( ( have_posts() && in_array( get_post_type( get_the_ID() ), array( 'video', 'document' ) ) ) || ( isset( $_GET['post_type'] ) && in_array( $_GET['post_type'], array( 'video', 'document' ) ) ) ) {
+	add_filter( 'get_terms', 'admin_get_terms', 10, 3 );
+	add_filter( 'gettext', 'gettext_mbr' );
+	add_filter( 'ngettext', 'gettext_mbr' );
+	add_filter( 'posts_distinct', 'fitv_admin_posts_distinct' );
+	add_filter( 'posts_join', 'fitv_admin_posts_join' );
+	add_filter( 'posts_where', 'fitv_admin_posts_where' );
+	add_filter( 'wp_dropdown_users', 'fitv_wp_dropdown_users' );
+}
+
+add_action( 'the_content', 'fitv_vzaar_chapters' );
+
+remove_action( 'save_post', 'custom_add_save' );
+add_action( 'save_post', 'mbi_save_post' );
+
 ?>
