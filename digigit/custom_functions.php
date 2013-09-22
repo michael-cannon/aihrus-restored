@@ -30,8 +30,6 @@ require_once( __DIR__ . '/../lib/shortcodes.php' );
 require_once( __DIR__ . '/../lib/users.php' );
 // require_once( __DIR__ . '/../lib/widgets.php' );
 
-define( 'EMPTY_TRASH_DAYS', 30 );
-
 
 /**
  * Register with hook 'wp_enqueue_scripts', which can be used for 
