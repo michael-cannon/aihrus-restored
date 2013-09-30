@@ -1,5 +1,7 @@
 <?php
 
+add_filter( 'widget_text', 'do_shortcode' );
+
 function aihrus_init() {
 	if ( ! is_super_admin() )
 		show_admin_bar( false );

@@ -8,3 +8,7 @@ Template: restored
 */
 
 @import url("../restored/style.css");
+
+#slider_wrap {
+	padding-bottom: 40px;
+}
