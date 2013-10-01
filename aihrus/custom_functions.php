@@ -31,6 +31,7 @@ require_once( __DIR__ . '/../lib/thumbnails.php' );
 require_once( __DIR__ . '/../lib/users.php' );
 // require_once( __DIR__ . '/../lib/widgets.php' );
 
+require_once __DIR__ . '/shortcodes.php' ;
 
 // add_action( 'wp_enqueue_scripts', 'custom_stylesheet' );
 function custom_stylesheet() {
