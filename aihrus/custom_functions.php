@@ -18,17 +18,17 @@ require_once( __DIR__ . '/../lib/attachments.php' );
 // require_once( __DIR__ . '/../lib/gallery.php' );
 // require_once( __DIR__ . '/../lib/javascript.php' );
 // require_once( __DIR__ . '/../lib/pages.php' );
-// require_once( __DIR__ . '/../lib/posts.php' );
+require_once( __DIR__ . '/../lib/posts.php' );
 // require_once( __DIR__ . '/../lib/query.php' );
 // require_once( __DIR__ . '/../lib/roles.php' );
 // require_once( __DIR__ . '/../lib/rss.php' );
 // require_once( __DIR__ . '/../lib/relevanssi.php' );
 // require_once( __DIR__ . '/../lib/search.php' );
-// require_once( __DIR__ . '/../lib/shortcodes.php' );
+require_once( __DIR__ . '/../lib/shortcodes.php' );
 // require_once( __DIR__ . '/../lib/template.php' );
 // require_once( __DIR__ . '/../lib/testimonials-widget.php' );
 require_once( __DIR__ . '/../lib/thumbnails.php' );
-// require_once( __DIR__ . '/../lib/users.php' );
+require_once( __DIR__ . '/../lib/users.php' );
 // require_once( __DIR__ . '/../lib/widgets.php' );
 
 
