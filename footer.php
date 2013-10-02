@@ -23,7 +23,7 @@
 						<?php } if (of_get_option('facebook') != '') { ?>
 					<a href="<?php echo stripslashes(of_get_option('facebook')); ?>" title="Facebook"><img src="<?php echo get_template_directory_uri(); ?>/images/socnets/facebook.png" alt="Facebook" /></a>
 						<?php } if (of_get_option('github') != '') { ?>
-					<a href="<?php echo stripslashes(of_get_option('github')); ?>" title="Github"><img src="<?php echo get_template_directory_uri(); ?>/images/socnets/github.png" alt="Github" /></a>
+					<a href="<?php echo stripslashes(of_get_option('github')); ?>" title="Github"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/socnets/github.png" alt="Github" /></a>
 						<?php } if (of_get_option('google') != '') { ?>
 					<a href="<?php echo stripslashes(of_get_option('google')); ?>" title="Google+"><img src="<?php echo get_template_directory_uri(); ?>/images/socnets/google.png" alt="Google+" /></a>
 						<?php } if (of_get_option('flickr') != '') { ?>
@@ -37,7 +37,7 @@
 						<?php } if (of_get_option('vimeo') != '') { ?>
 					<a href="<?php echo stripslashes(of_get_option('vimeo')); ?>" title="Vimeo"><img src="<?php echo get_template_directory_uri(); ?>/images/socnets/vimeo.png" alt="Vimeo" /></a>
 						<?php } if (of_get_option('rss') != '') { ?>
-					<a href="<?php echo stripslashes(of_get_option('rss')); ?>" title="RSS"><img src="<?php echo get_template_directory_uri(); ?>/images/socnets/rss.png" alt="RSS" /></a>
+					<a href="<?php echo stripslashes(of_get_option('rss')); ?>" title="RSS"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/socnets/rss.png" alt="RSS" /></a>
 						<?php } ?>
 					<div class="clear"></div>
 				</div>
