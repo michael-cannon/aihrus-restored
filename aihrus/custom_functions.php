@@ -175,7 +175,7 @@ function aihrus_prepend_post_thumbnail( $content ) {
 	$thumbnail = '';
 
 	$post_type = get_post_type( get_the_ID() );
-	if ( 'slides' != $post_type )
+	if ( ! in_array( $post_type, array( 'slides', 'download' ) ) )
 		$thumbnail = prepend_post_thumbnail( $content );
 
 	return $thumbnail . $content;
