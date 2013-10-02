@@ -125,4 +125,13 @@ function curPageURL() {
 	return $pageURL;
 }
 
+// add_filter( 'script_loader_src', '_remove_script_version', 15, 1 );
+// add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
+if ( ! function_exists( '_remove_script_version' ) ) {
+	function _remove_script_version( $src ) {
+		$parts = explode( '?ver', $src );
+		return $parts[0];
+	}
+}
+
 ?>

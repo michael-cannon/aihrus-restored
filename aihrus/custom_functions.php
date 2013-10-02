@@ -135,6 +135,8 @@ add_filter( 'wp_generate_attachment_metadata', 'add_attachment_post_tags', '', 2
 // add_filter( 'get_the_excerpt', 'excerpt_remove_social' );
 
 // javascript
+add_filter( 'script_loader_src', '_remove_script_version', 15, 1 );
+add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
 
 // posts
 add_action( 'pre_ping', 'disable_self_ping' );
@@ -167,7 +169,17 @@ add_shortcode( 'field', 'shortcode_field' );
 // add_image_size( 'Slide', 940, 350, true );
 
 // add_filter( 'the_excerpt', 'prepend_post_thumbnail' );
-add_filter( 'the_content', 'prepend_post_thumbnail', 1 );
+add_filter( 'the_content', 'aihrus_prepend_post_thumbnail', 1 );
+
+function aihrus_prepend_post_thumbnail( $content ) {
+	$thumbnail = '';
+
+	$post_type = get_post_type( get_the_ID() );
+	if ( 'slides' != $post_type )
+		$thumbnail = prepend_post_thumbnail( $content );
+
+	return $thumbnail . $content;
+}
 
 // users
 add_filter( 'user_contactmethods','custom_user_contactmethods' );
