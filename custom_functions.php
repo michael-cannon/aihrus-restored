@@ -26,11 +26,10 @@ require_once( __DIR__ . '/../lib/posts.php' );
 // require_once( __DIR__ . '/../lib/search.php' );
 require_once( __DIR__ . '/../lib/shortcodes.php' );
 // require_once( __DIR__ . '/../lib/template.php' );
+// require_once( __DIR__ . '/../lib/testimonials-widget.php' );
 require_once( __DIR__ . '/../lib/thumbnails.php' );
 require_once( __DIR__ . '/../lib/users.php' );
 // require_once( __DIR__ . '/../lib/widgets.php' );
-
-define( 'EMPTY_TRASH_DAYS', 30 );
 
 
 /**
@@ -85,6 +84,8 @@ add_shortcode('gallery', 'custom_gallery_shortcode');
 // add_filter( 'get_the_excerpt', 'excerpt_remove_social' );
 
 // javascript
+add_filter( 'script_loader_src', '_remove_script_version', 15, 1 );
+add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
 
 // posts
 add_action( 'pre_ping', 'disable_self_ping' );
@@ -112,9 +113,6 @@ add_action( 'thesis_hook_after_headline', 'custom_byline' );
 // add_filter( 'widget_text', 'do_shortcode' );
 add_shortcode( 'field', 'shortcode_field' );
 
-// testimonails
-// add_filter( 'testimonials_widget_disable_cache', function() { return false; } );
-
 // thumbnails
 add_theme_support( 'post-thumbnails' );
 // add_image_size( 'Slide', 940, 350, true );
@@ -130,7 +128,6 @@ add_filter( 'user_contactmethods','custom_user_contactmethods' ); if ( is_admin(
 // query mods
 // add_filter( 'pre_get_posts', 'posts_for_current_author' );
 // add_filter( 'get_terms', 'admin_get_terms', 10, 3 );
-// add_filter( 'pre_get_posts', 'pre_get_posts_allow_testimonials_widget' );
 
 // widgets
 // add_action( 'widgets_init', 'remove_wp_widgets', 1 );
@@ -147,20 +144,9 @@ $locale_file					= TEMPLATEPATH . "/languages/$locale.php";
 if ( is_readable( $locale_file ) )
 	require_once( $locale_file );
 
-function pre_get_posts_allow_testimonials_widget( $query ) {
-	if ( $query->is_admin ) {
-		return $query;
-	} elseif ( ( $query->is_main_query() || is_feed() ) && ! is_page() ) {
-		$query->set( 'post_type', array( 'post', 'testimonials-widget' ) );
-	}
-
-	return $query;
-}
-
 if ( false && is_page( 15901 ) ) {
 	remove_filter( 'the_content', 'auto_sociable' );
 	remove_filter( 'the_excerpt', 'auto_sociable' );
 }
-
 
 ?>

@@ -30,8 +30,6 @@ require_once( __DIR__ . '/../lib/shortcodes.php' );
 require_once( __DIR__ . '/../lib/users.php' );
 // require_once( __DIR__ . '/../lib/widgets.php' );
 
-define( 'EMPTY_TRASH_DAYS', 30 );
-
 
 /**
  * Register with hook 'wp_enqueue_scripts', which can be used for 
@@ -188,5 +186,6 @@ function pre_get_posts_allow_testimonials_widget( $query ) {
 
 add_filter( 'wp_new_user_notification_html', '__return_true' );
 
+remove_action( 'edd_after_cc_fields', 'edd_default_cc_address_fields' );
 
 ?>

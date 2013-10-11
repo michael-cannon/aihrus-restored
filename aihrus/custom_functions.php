@@ -1,6 +1,6 @@
 <?php
 /**
- *  WordPress Thesis theme customizations
+ *  WordPress Aihrus theme customizations
  *
  *  @author Michael Cannon <mc@aihr.us>
  */
@@ -13,9 +13,9 @@ require_once( __DIR__ . '/../lib/attachments.php' );
 // require_once( __DIR__ . '/../lib/authors.php' );
 // require_once( __DIR__ . '/../lib/comments.php' );
 // require_once( __DIR__ . '/../lib/define.php' );
-require_once( __DIR__ . '/../lib/debug.php' );
+// require_once( __DIR__ . '/../lib/debug.php' );
 // require_once( __DIR__ . '/../lib/excerpts.php' );
-require_once( __DIR__ . '/../lib/gallery.php' );
+// require_once( __DIR__ . '/../lib/gallery.php' );
 // require_once( __DIR__ . '/../lib/javascript.php' );
 // require_once( __DIR__ . '/../lib/pages.php' );
 require_once( __DIR__ . '/../lib/posts.php' );
@@ -26,20 +26,14 @@ require_once( __DIR__ . '/../lib/posts.php' );
 // require_once( __DIR__ . '/../lib/search.php' );
 require_once( __DIR__ . '/../lib/shortcodes.php' );
 // require_once( __DIR__ . '/../lib/template.php' );
+// require_once( __DIR__ . '/../lib/testimonials-widget.php' );
 require_once( __DIR__ . '/../lib/thumbnails.php' );
 require_once( __DIR__ . '/../lib/users.php' );
 // require_once( __DIR__ . '/../lib/widgets.php' );
 
+require_once __DIR__ . '/shortcodes.php' ;
 
-/**
- * Register with hook 'wp_enqueue_scripts', which can be used for 
- front end CSS and JavaScript
- */
 // add_action( 'wp_enqueue_scripts', 'custom_stylesheet' );
-
-/**
- * Enqueue plugin style-file
- */
 function custom_stylesheet() {
 	// Respects SSL, Style.css is relative to the current file
 	wp_register_style( 'custom-style', get_bloginfo('template_directory'). '/custom/custom.css' );
@@ -60,19 +54,77 @@ if ( ! current_user_can('administrator') ) {
 // footer
 // add_action( 'wp_footer', 'footer_analytics' );
 
+function aihrus_init() {
+	if ( ! is_super_admin() )
+		show_admin_bar( false );
+
+	aihrus_scripts();
+	aihrus_styles();
+}
+
+add_action( 'init', 'aihrus_init' );
+
+function aihrus_scripts() {
+	wp_register_script( 'zenbox', get_stylesheet_directory_uri() . '/js/zenbox.js' );
+	wp_enqueue_script( 'zenbox' );
+}
+
+
+function aihrus_styles() {
+	wp_register_style( 'zenbox', get_stylesheet_directory_uri() . '/css/zenbox.css' );
+	wp_enqueue_style( 'zenbox' );
+}
+
+
+function aihrus_wp_footer() {
+	$url = get_stylesheet_directory_uri();
+
+	echo <<<EOD
+<!-- Zendesk support -->
+<script type="text/javascript">
+	if (typeof(Zenbox) !== "undefined") {
+		Zenbox.init({
+			dropboxID:   "20182507",
+			url:         "https://aihrus.zendesk.com",
+			tabTooltip:  "Need Help?",
+			tabImageURL: "{$url}/media/tab_ask_us_right.png",
+			tabColor:    "#ff0000",
+			tabPosition: "Right"
+		});
+	}
+</script>
+<!-- end Zendesk support -->
+
+<!-- Google Analytics Code -->
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-20956818-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+<!-- end Google Analytics Code -->
+EOD;
+}
+add_action( 'wp_footer', 'aihrus_wp_footer', 20 );
+
 // attachments
 add_action( 'admin_init', 'register_attachment_taxonomy' );
 add_filter( 'wp_read_image_metadata', 'read_all_image_metadata', '', 3 );
 add_filter( 'wp_generate_attachment_metadata', 'add_attachment_alt_text', '', 2 );
 add_filter( 'wp_generate_attachment_metadata', 'add_attachment_post_tags', '', 2 );
-remove_filter('wp_generate_attachment_metadata', 'wp_smushit_resize_from_meta_data');
+// remove_filter('wp_generate_attachment_metadata', 'wp_smushit_resize_from_meta_data');
 
 // call to action
 // add_filter( 'the_content', 'custom_call_to_action', 29 );
 
 // gallery
-remove_shortcode('gallery', 'gallery_shortcode');
-add_shortcode('gallery', 'custom_gallery_shortcode');
+// remove_shortcode('gallery', 'gallery_shortcode');
+// add_shortcode('gallery', 'custom_gallery_shortcode');
 
 // authors
 // add_filter( 'gettext', 'gettext_mbr' );
@@ -83,6 +135,8 @@ add_shortcode('gallery', 'custom_gallery_shortcode');
 // add_filter( 'get_the_excerpt', 'excerpt_remove_social' );
 
 // javascript
+add_filter( 'script_loader_src', '_remove_script_version', 15, 1 );
+add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
 
 // posts
 add_action( 'pre_ping', 'disable_self_ping' );
@@ -107,18 +161,25 @@ add_action( 'pre_ping', 'disable_self_ping' );
 // add_filter( 'relevanssi_stemmer', 'relevanssi_simple_english_stemmer' );
 
 // shortcodes
-// add_filter( 'widget_text', 'do_shortcode' );
-// add_shortcode( 'field', 'shortcode_field' );
-
-// testimonails
-// add_filter( 'testimonials_widget_disable_cache', function() { return false; } );
+add_filter( 'widget_text', 'do_shortcode' );
+add_shortcode( 'field', 'shortcode_field' );
 
 // thumbnails
 // add_theme_support( 'post-thumbnails' );
 // add_image_size( 'Slide', 940, 350, true );
 
 // add_filter( 'the_excerpt', 'prepend_post_thumbnail' );
-// add_filter( 'the_content', 'prepend_post_thumbnail', 1 );
+add_filter( 'the_content', 'aihrus_prepend_post_thumbnail', 1 );
+
+function aihrus_prepend_post_thumbnail( $content ) {
+	$thumbnail = '';
+
+	$post_type = get_post_type( get_the_ID() );
+	if ( ! in_array( $post_type, array( 'slides', 'download' ) ) )
+		$thumbnail = prepend_post_thumbnail( $content );
+
+	return $thumbnail . $content;
+}
 
 // users
 add_filter( 'user_contactmethods','custom_user_contactmethods' );
@@ -143,5 +204,9 @@ $locale							= get_locale();
 $locale_file					= TEMPLATEPATH . "/languages/$locale.php";
 if ( is_readable( $locale_file ) )
 	require_once( $locale_file );
+
+add_filter( 'wp_new_user_notification_html', '__return_true' );
+
+remove_action( 'edd_after_cc_fields', 'edd_default_cc_address_fields' );
 
 ?>
