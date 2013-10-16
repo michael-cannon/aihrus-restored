@@ -80,6 +80,16 @@ function aihrus_wp_footer() {
 	$url = get_stylesheet_directory_uri();
 
 	echo <<<EOD
+<!-- ClickTale Bottom part -->
+<div id="ClickTaleDiv" style="display: none;"></div>
+<script type="text/javascript">
+	if(document.location.protocol != 'https:') document.write(unescape("%3Cscript%20src='" +'http://cdn.clicktale.net/www/' + "WRe6.js'%20type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+	if(typeof ClickTale=='function')  ClickTale(6494, 0.5, "www08");
+</script>
+<!-- ClickTale end of Bottom part -->
+
 <!-- Zendesk support -->
 <script type="text/javascript">
 	if (typeof(Zenbox) !== "undefined") {
