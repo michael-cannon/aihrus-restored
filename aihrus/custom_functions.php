@@ -172,13 +172,11 @@ add_shortcode( 'field', 'shortcode_field' );
 add_filter( 'the_content', 'aihrus_prepend_post_thumbnail', 1 );
 
 function aihrus_prepend_post_thumbnail( $content ) {
-	$thumbnail = '';
-
 	$post_type = get_post_type( get_the_ID() );
 	if ( ! in_array( $post_type, array( 'slides', 'download' ) ) )
-		$thumbnail = prepend_post_thumbnail( $content );
+		$content = prepend_post_thumbnail( $content );
 
-	return $thumbnail . $content;
+	return $content;
 }
 
 // users
