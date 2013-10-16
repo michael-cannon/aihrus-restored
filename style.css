@@ -11,6 +11,7 @@ Template: restored
 
 .testimonials-widget-testimonial blockquote {
 	border-left: none;
+	padding-left: 0;
 }
 
 #slider_wrap {
