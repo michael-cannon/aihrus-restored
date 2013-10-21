@@ -15,7 +15,7 @@ require_once( __DIR__ . '/../lib/attachments.php' );
 // require_once( __DIR__ . '/../lib/define.php' );
 // require_once( __DIR__ . '/../lib/debug.php' );
 // require_once( __DIR__ . '/../lib/excerpts.php' );
-// require_once( __DIR__ . '/../lib/gallery.php' );
+require_once( __DIR__ . '/../lib/gallery.php' );
 // require_once( __DIR__ . '/../lib/javascript.php' );
 // require_once( __DIR__ . '/../lib/pages.php' );
 require_once( __DIR__ . '/../lib/posts.php' );
@@ -133,8 +133,8 @@ add_filter( 'wp_generate_attachment_metadata', 'add_attachment_post_tags', '', 2
 // add_filter( 'the_content', 'custom_call_to_action', 29 );
 
 // gallery
-remove_shortcode('gallery', 'gallery_shortcode');
-add_shortcode('gallery', 'custom_gallery_shortcode');
+remove_shortcode( 'gallery', 'gallery_shortcode' );
+add_shortcode( 'gallery', 'custom_gallery_shortcode' );
 
 // authors
 // add_filter( 'gettext', 'gettext_mbr' );
