@@ -133,8 +133,8 @@ add_filter( 'wp_generate_attachment_metadata', 'add_attachment_post_tags', '', 2
 // add_filter( 'the_content', 'custom_call_to_action', 29 );
 
 // gallery
-// remove_shortcode('gallery', 'gallery_shortcode');
-// add_shortcode('gallery', 'custom_gallery_shortcode');
+remove_shortcode('gallery', 'gallery_shortcode');
+add_shortcode('gallery', 'custom_gallery_shortcode');
 
 // authors
 // add_filter( 'gettext', 'gettext_mbr' );
