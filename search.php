@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <div id="archive_grid_wrap">
-	<h2 class="post_title"><?php /* Search Count */ $allsearch = &new WP_Query("s=$s&showposts=-1&post_type=download"); $count = $allsearch->post_count; echo $count . ' '; wp_reset_query(); ?><?php _e('Search Results for', 'designcrumbs'); ?> <strong><?php the_search_query() ?></strong></h2>
+	<h2 class="post_title"><?php /* Search Count */ $allsearch = new WP_Query("s=$s&showposts=-1"); $count = $allsearch->post_count; echo $count . ' '; wp_reset_query(); ?><?php _e('Search Results for', 'designcrumbs'); ?> <strong><?php the_search_query() ?></strong></h2>
 	<div id="archive_grid">
 	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 		<div class="single_grid_product">
@@ -18,7 +18,9 @@
 			</div>
 			<?php } ?>
 			<h3><a class="grid_title" href="<?php the_permalink() ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
+
 			<div class="product_meta">
+<?php if ( 'download' == get_post_type() ) { ?>
 				<div class="left">	
 					<?php if(edd_has_variable_prices(get_the_ID())) { ?>	
 						<?php _e('Starting at', 'designcrumbs'); ?> <?php edd_price(get_the_ID()); ?>
@@ -26,6 +28,7 @@
 						<?php edd_price(get_the_ID()); ?>	
 					<?php } ?>				
 				</div>
+<?php } ?>
 				<div class="right">
 					<a href="<?php the_permalink() ?>" title="<?php the_title(); ?>" class="more-link"><?php _e('View Details', 'designcrumbs'); ?> &raquo;</a>
 				</div>
