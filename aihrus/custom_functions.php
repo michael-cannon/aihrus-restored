@@ -15,7 +15,7 @@ require_once( __DIR__ . '/../lib/attachments.php' );
 // require_once( __DIR__ . '/../lib/define.php' );
 // require_once( __DIR__ . '/../lib/debug.php' );
 // require_once( __DIR__ . '/../lib/excerpts.php' );
-// require_once( __DIR__ . '/../lib/gallery.php' );
+require_once( __DIR__ . '/../lib/gallery.php' );
 // require_once( __DIR__ . '/../lib/javascript.php' );
 // require_once( __DIR__ . '/../lib/pages.php' );
 require_once( __DIR__ . '/../lib/posts.php' );
@@ -23,7 +23,7 @@ require_once( __DIR__ . '/../lib/posts.php' );
 // require_once( __DIR__ . '/../lib/roles.php' );
 // require_once( __DIR__ . '/../lib/rss.php' );
 // require_once( __DIR__ . '/../lib/relevanssi.php' );
-// require_once( __DIR__ . '/../lib/search.php' );
+require_once( __DIR__ . '/../lib/search.php' );
 require_once( __DIR__ . '/../lib/shortcodes.php' );
 // require_once( __DIR__ . '/../lib/template.php' );
 // require_once( __DIR__ . '/../lib/testimonials-widget.php' );
@@ -80,6 +80,16 @@ function aihrus_wp_footer() {
 	$url = get_stylesheet_directory_uri();
 
 	echo <<<EOD
+<!-- ClickTale Bottom part -->
+<div id="ClickTaleDiv" style="display: none;"></div>
+<script type="text/javascript">
+	if(document.location.protocol != 'https:') document.write(unescape("%3Cscript%20src='" +'http://cdn.clicktale.net/www/' + "WRe6.js'%20type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+	if(typeof ClickTale=='function')  ClickTale(6494, 0.5, "www08");
+</script>
+<!-- ClickTale end of Bottom part -->
+
 <!-- Zendesk support -->
 <script type="text/javascript">
 	if (typeof(Zenbox) !== "undefined") {
@@ -94,20 +104,6 @@ function aihrus_wp_footer() {
 	}
 </script>
 <!-- end Zendesk support -->
-
-<!-- Google Analytics Code -->
-<script type="text/javascript">
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-20956818-1']);
-	_gaq.push(['_trackPageview']);
-
-	(function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	})();
-</script>
-<!-- end Google Analytics Code -->
 EOD;
 }
 add_action( 'wp_footer', 'aihrus_wp_footer', 20 );
@@ -123,8 +119,8 @@ add_filter( 'wp_generate_attachment_metadata', 'add_attachment_post_tags', '', 2
 // add_filter( 'the_content', 'custom_call_to_action', 29 );
 
 // gallery
-// remove_shortcode('gallery', 'gallery_shortcode');
-// add_shortcode('gallery', 'custom_gallery_shortcode');
+remove_shortcode( 'gallery', 'gallery_shortcode' );
+add_shortcode( 'gallery', 'custom_gallery_shortcode' );
 
 // authors
 // add_filter( 'gettext', 'gettext_mbr' );
@@ -159,6 +155,7 @@ add_action( 'pre_ping', 'disable_self_ping' );
 
 // search
 // add_filter( 'relevanssi_stemmer', 'relevanssi_simple_english_stemmer' );
+add_filter( 'pre_get_posts', 'aihrus_search_all_post_types' );
 
 // shortcodes
 add_filter( 'widget_text', 'do_shortcode' );
@@ -172,13 +169,11 @@ add_shortcode( 'field', 'shortcode_field' );
 add_filter( 'the_content', 'aihrus_prepend_post_thumbnail', 1 );
 
 function aihrus_prepend_post_thumbnail( $content ) {
-	$thumbnail = '';
-
 	$post_type = get_post_type( get_the_ID() );
 	if ( ! in_array( $post_type, array( 'slides', 'download' ) ) )
-		$thumbnail = prepend_post_thumbnail( $content );
+		$content = prepend_post_thumbnail( $content );
 
-	return $thumbnail . $content;
+	return $content;
 }
 
 // users
