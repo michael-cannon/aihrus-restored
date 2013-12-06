@@ -7,6 +7,9 @@
 
 // add_filter( 'pre_get_posts', 'aihrus_search_all_post_types' );
 function aihrus_search_all_post_types( $query ) {
+	if ( is_admin() )
+		return $query;
+
 	if ( $query->is_search ) {
 		$args        = array(
 			'public' => true,
