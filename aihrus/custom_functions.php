@@ -97,7 +97,7 @@ function aihrus_wp_footer() {
 			dropboxID:   "20182507",
 			url:         "https://aihrus.zendesk.com",
 			tabTooltip:  "Need Help?",
-			tabImageURL: "{$url}/media/tab_ask_us_right.png",
+			tabImageURL: "{$url}/media/tab_support_right.png",
 			tabColor:    "#ff0000",
 			tabPosition: "Right"
 		});
@@ -203,5 +203,14 @@ if ( is_readable( $locale_file ) )
 add_filter( 'wp_new_user_notification_html', '__return_true' );
 
 remove_action( 'edd_after_cc_fields', 'edd_default_cc_address_fields' );
+
+// add_filter( 'option_siteurl', 'aihrus_option_siteurl' );
+function aihrus_option_siteurl( $siteurl ) {
+	if ( ! empty( $siteurl ) ) {
+		$siteurl = preg_replace( '#https?:#', '', $siteurl );
+	}
+
+	return $siteurl;
+}
 
 ?>
