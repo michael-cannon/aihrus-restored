@@ -213,4 +213,6 @@ function aihrus_option_siteurl( $siteurl ) {
 	return $siteurl;
 }
 
+define( 'EDD_BYPASS_NAME_CHECK', true );
+
 ?>
