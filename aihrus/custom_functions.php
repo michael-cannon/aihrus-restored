@@ -131,8 +131,8 @@ add_shortcode( 'gallery', 'custom_gallery_shortcode' );
 // add_filter( 'get_the_excerpt', 'excerpt_remove_social' );
 
 // javascript
-add_filter( 'script_loader_src', '_remove_script_version', 15, 1 );
-add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
+add_filter( 'script_loader_src', 'aihrus_remove_script_version', 15, 1 );
+add_filter( 'style_loader_src', 'aihrus_remove_script_version', 15, 1 );
 
 // posts
 add_action( 'pre_ping', 'disable_self_ping' );
