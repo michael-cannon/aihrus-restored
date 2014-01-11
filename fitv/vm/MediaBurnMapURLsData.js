@@ -335,5 +335,3 @@ mapData299,mapData303,mapData306,mapData309,mapData313,mapData316,mapData319,map
 mapData336,mapData340,mapData343,mapData347,mapData350,mapData353,mapData357,mapData360,mapData363,mapData368,mapData370,
 mapData374,mapData377,mapData380
 ];
-
- 
