@@ -133,15 +133,6 @@ $locale_file					= TEMPLATEPATH . "/languages/$locale.php";
 if ( is_readable( $locale_file ) )
 	require_once( $locale_file );
 
-// require_once 'video-quick-edit.php';
-
-global $mp;
-remove_action( 'manage_posts_custom_column', array(&$mp, 'manage_orders_custom_columns') );
-add_action( 'manage_product_posts_custom_column', array(&$mp, 'manage_orders_custom_columns') );
-
-remove_action( 'manage_posts_custom_column', array(&$mp, 'edit_products_custom_columns') );
-add_action( 'manage_product_posts_custom_column', array(&$mp, 'edit_products_custom_columns') );
-
 if ( ( have_posts() && in_array( get_post_type( get_the_ID() ), array( 'video', 'document' ) ) ) || ( isset( $_GET['post_type'] ) && in_array( $_GET['post_type'], array( 'video', 'document' ) ) ) ) {
 	add_filter( 'get_terms', 'admin_get_terms', 10, 3 );
 	add_filter( 'gettext', 'gettext_mbr' );
@@ -156,5 +147,8 @@ add_action( 'the_content', 'fitv_vzaar_chapters' );
 
 remove_action( 'save_post', 'custom_add_save' );
 add_action( 'save_post', 'mbi_save_post' );
+
+require_once 'video-map.php';
+add_shortcode( 'video_map', 'fitv_video_map' );
 
 ?>
