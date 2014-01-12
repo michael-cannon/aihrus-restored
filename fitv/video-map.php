@@ -15,8 +15,8 @@ function fitv_video_map() {
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHXh8xg9Cf1ZJfaK1HIN6Q6Whblp4Ex38&sensor=false&libraries=visualization,places&language=us"> <!-- &language=us -->
     </script>
-    <script type="text/javascript" src="{$url}MediaBurnMapURLsData.js?v=20131012"></script>
-    <script type="text/javascript" src="{$url}markerclusterer.js?v=20131012"></script>
+    <script type="text/javascript" src="{$url}MediaBurnMapURLsData.js"></script>
+    <script type="text/javascript" src="{$url}markerclusterer.js"></script>
     
     <script type="text/javascript">
     
@@ -104,8 +104,8 @@ function fitv_video_map() {
           ].join(' ');
         }
 
-        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-        infowindow.open(map, marker);
+        // infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        // infowindow.open(map, marker);
       });
     /*******init the heatmap Data from mapdataArray   google.maps.visualization.WeightedLocation/google.maps.LatLng   **/
      var markers = [];
@@ -119,7 +119,7 @@ function fitv_video_map() {
     	  	     var marker = new google.maps.Marker({
     	  	          position: latLng,
     	  	          title:mapObejct.title,
-    	  	          icon:'images/marker_1.png'
+    	  	          icon:'{$url}images/marker_1.png'
     	  	     });
     	  	   markers.push(marker);
     	  	 	
@@ -240,7 +240,7 @@ function fitv_video_map() {
 		              	 map: map,
 		             	 position: currentLat,
 		             	 title:mapObejct.title,
-		             	 icon:'images/marker_1.png'
+		             	 icon:'{$url}images/marker_1.png'
 		         	  }); 
 		    	     markersDatas.push(marker);
 		              //bind the click event
