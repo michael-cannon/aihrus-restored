@@ -102,7 +102,7 @@ function fitv_admin_posts_fields( $fields ) {
 		$orderby				= $wp_query->get( 'orderby' );
 	}
 
-	if ( $orderby ) {
+	if ( $orderby && is_main_query() ) {
 		switch ( $orderby ) {
 			case 'episode' :
 				$fields		.= ", REPLACE( {$wpdb->posts}.post_title, '[', 'zzzzzz[') CUSTOM_" . $orderby;
@@ -125,7 +125,7 @@ function fitv_admin_posts_fields( $fields ) {
 
 			case 'control_number' :
 			case 'video_tape_format' :
-				$fields		.= ', ( SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = "' . $orderby . '" AND wp_postmeta.post_id = ' . $wpdb->posts . '.ID )' . ' CUSTOM_' . $orderby;
+				$fields		.= ', ( SELECT wp_postmeta.meta_value FROM ' . $wpdb->postmeta . ' WHERE wp_postmeta.meta_key = "' . $orderby . '" AND wp_postmeta.post_id = ' . $wpdb->posts . '.ID LIMIT 1 )' . ' CUSTOM_' . $orderby;
 				break;
 
 			default :
@@ -151,7 +151,7 @@ function fitv_admin_posts_orderby( $vars ) {
 		$order					= $wp_query->get( 'order' );
 	}
 
-	if ( $orderby ) {
+	if ( $orderby && is_main_query() ) {
 		switch ( $orderby ) {
 			case 'production_date' :
 			case 'publication_date' :

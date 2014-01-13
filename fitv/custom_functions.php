@@ -157,4 +157,7 @@ add_action( 'the_content', 'fitv_vzaar_chapters' );
 remove_action( 'save_post', 'custom_add_save' );
 add_action( 'save_post', 'mbi_save_post' );
 
+require_once 'video-map.php';
+add_shortcode( 'video_map', 'fitv_video_map' );
+
 ?>
