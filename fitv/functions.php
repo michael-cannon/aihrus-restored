@@ -82,7 +82,7 @@ function fitv_admin_posts_where( $where ) {
 			$where				= preg_replace( "/\(\s*".$wpdb->posts.".post_title\s+LIKE\s*(\'[^\']+\')\s*\)/", "(".$wpdb->posts.".post_title LIKE $1) OR ( " . $wpdb->postmeta . ".meta_key = 'control_number' AND " . $wpdb->postmeta . ".meta_value LIKE $1 )", $where );
 		} else {
 			$s					= $wp_query->query_vars['s'];
-			$where				= preg_replace( "/\(\s*".$wpdb->posts.".post_title\s+LIKE\s*(\'[^\']+\')\s*\)/", "(".$wpdb->posts.".post_title LIKE $1) OR ( " . $wpdb->postmeta . ".meta_key = 'additional_copies' AND " . $wpdb->postmeta . ".meta_value LIKE '%" . $s . "%') OR ( " . $wpdb->postmeta . ".meta_key = 'acquisition_source' AND " . $wpdb->postmeta . ".meta_value LIKE '%" . $s . "%')", $where );
+			$where				= preg_replace( "/\(\s*".$wpdb->posts.".post_title\s+LIKE\s*(\'[^\']+\')\s*\)/", "(".$wpdb->posts.".post_title LIKE $1) OR ( " . $wpdb->postmeta . ".meta_key = 'additional_copies' AND " . $wpdb->postmeta . ".meta_value LIKE '%" . $s . "%')", $where );
 		}
 	}
 

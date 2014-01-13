@@ -16,7 +16,7 @@ require_once( __DIR__ . '/../lib/attachments.php' );
 // require_once( __DIR__ . '/../lib/debug.php' );
 // require_once( __DIR__ . '/../lib/excerpts.php' );
 require_once( __DIR__ . '/../lib/gallery.php' );
-// require_once( __DIR__ . '/../lib/javascript.php' );
+require_once( __DIR__ . '/../lib/javascript.php' );
 // require_once( __DIR__ . '/../lib/pages.php' );
 require_once( __DIR__ . '/../lib/posts.php' );
 // require_once( __DIR__ . '/../lib/query.php' );
