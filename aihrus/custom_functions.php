@@ -215,13 +215,13 @@ function aihrus_option_siteurl( $siteurl ) {
 
 define( 'EDD_BYPASS_NAME_CHECK', true );
 
-add_filter( 'wp_mail_from', 'aihrus_mail_from' );
+// add_filter( 'wp_mail_from', 'aihrus_mail_from' );
 function aihrus_mail_from( $email ) {
 	// NOTE: replace [at] with @. This was causing problems with the syntax highlighter.
 	return 'support@aihr.us';
 }
 
-add_filter( 'wp_mail_from_name', 'aihrus_mail_from_name' );
+// add_filter( 'wp_mail_from_name', 'aihrus_mail_from_name' );
 function aihrus_mail_from_name( $name ) {
 	return 'Aihrus Support';
 }
