@@ -6,7 +6,30 @@
  */
 // add_shortcode( 'video_map', 'fitv_video_map' );
 function fitv_video_map() {
-	$url = get_stylesheet_directory_uri() . '/functions/user/custom/fitv/vm/';
+	$body = <<<EOD
+      	<div align="center">
+      		<input type="text" name="searchLocation" id="searchLocation" size="100">
+      		<input type="button" value="Google" onclick="googleMapSearch()" >
+      	</div>
+        <div id="map-canvas"></div>
+        <div id="lat"></div>
+EOD;
+
+	echo $body;
+
+	add_action( 'wp_footer', 'fitv_video_map_scripts' );
+}
+
+
+// add_action( 'wp_footer', 'fitv_video_map_scripts' );
+function fitv_video_map_scripts() {
+	$uri = get_stylesheet_directory_uri();
+	$url = explode( '/themes/', __DIR__ );
+	unset( $url[0] );
+	$url = explode( '/', $url[1] );
+	unset( $url[0] );
+	$url = implode( '/', $url );
+	$url = $uri . '/' . $url . '/vm/';
 
 	$head = <<<EOD
     <style type="text/css">
@@ -296,17 +319,6 @@ function fitv_video_map() {
 EOD;
 
 	echo $head;
-
-	$body = <<<EOD
-      	<div align="center">
-      		<input type="text" name="searchLocation" id="searchLocation" size="100">
-      		<input type="button" value="Google" onclick="googleMapSearch()" >
-      	</div>
-        <div id="map-canvas"></div>
-        <div id="lat"></div>
-EOD;
-
-	echo $body;
 }
 
 ?>

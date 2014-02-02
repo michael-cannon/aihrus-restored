@@ -252,7 +252,7 @@ function fitv_vzaar_chapters_scripts() {
 function pre_get_posts_allow_video_document( $query ) {
 	if ( $query->is_admin ) {
 		return $query;
-	} elseif ( ( $query->is_main_query() || is_feed() ) && ! is_page() && ( 'post' == $query->query_vars['post_type'] || is_archive()) ) {
+	} elseif ( ( $query->is_main_query() || is_feed() ) && ! is_page() && ( ! empty( $query->query_vars['post_type'] ) && ( 'post' == $query->query_vars['post_type'] ) || is_archive()) ) {
 		$query->set( 'post_type', array( 'post', 'video', 'document' ) );
 	}
 
