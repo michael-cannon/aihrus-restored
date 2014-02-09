@@ -350,4 +350,9 @@ function aihrus_edd_payment_mode_select() {
 remove_action( 'edd_payment_mode_select', 'edd_payment_mode_select' );
 add_action( 'edd_payment_mode_select', 'aihrus_edd_payment_mode_select' );
 
+
+global $edd_slg_render;
+remove_action( 'edd_checkout_form_top', array( $edd_slg_render, 'edd_slg_social_login_buttons' ) );
+add_action( 'edd_before_purchase_form', array( $edd_slg_render, 'edd_slg_social_login_buttons' ), -2 );
+
 ?>
