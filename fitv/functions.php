@@ -282,7 +282,7 @@ class Fitv_Theme {
 	static $vzaar_id;
 	static $zeroClipboardJS;
 
-	function init() {
+	static function init() {
 		if ( empty( self::$vzaar_id ) )
 			self::$vzaar_id = get_post_meta( get_the_ID(), 'vzaar_id', true );
 
