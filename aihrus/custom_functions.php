@@ -355,4 +355,10 @@ global $edd_slg_render;
 remove_action( 'edd_checkout_form_top', array( $edd_slg_render, 'edd_slg_social_login_buttons' ) );
 add_action( 'edd_before_purchase_form', array( $edd_slg_render, 'edd_slg_social_login_buttons' ), -2 );
 
+// @ref http://wordpress.stackexchange.com/a/113550/8219
+function my_embed_oembed_html( $html ) {
+	return preg_replace( '@src="https?:@', 'src="', $html );
+}
+add_filter( 'embed_oembed_html', 'my_embed_oembed_html' );
+
 ?>
