@@ -361,6 +361,7 @@ function my_embed_oembed_html( $html ) {
 }
 add_filter( 'embed_oembed_html', 'my_embed_oembed_html' );
 
+// @ref http://stackoverflow.com/questions/11821419/wordpress-plugin-notifications
 $func = function ($a) {
 	global $wp_version;
 
