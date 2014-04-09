@@ -361,4 +361,16 @@ function my_embed_oembed_html( $html ) {
 }
 add_filter( 'embed_oembed_html', 'my_embed_oembed_html' );
 
+$func = function ($a) {
+	global $wp_version;
+
+	return (object) array(
+		'last_checked' => time(),
+		'version_checked' => $wp_version,
+	);
+};
+add_filter( 'pre_site_transient_update_core', $func );
+add_filter( 'pre_site_transient_update_plugins', $func );
+add_filter( 'pre_site_transient_update_themes', $func );
+
 ?>
