@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>mapUrlsDataGenerater</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<script type="text/javascript"
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHXh8xg9Cf1ZJfaK1HIN6Q6Whblp4Ex38&sensor=false&libraries=visualization,places&language=us">  
+    </script>
+    <script type="text/javascript" src="jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="MediaBurnMapURLsData.js?v=20131012"></script>
+    <style type="text/css">
+    	body {
+    			 font-size:13px;
+			}
+    </style>
+  </head>
+  <script type="text/javascript">
+
+ 		/*******************************************************
+	 	*******************************************************/
+	 	var indexNo ;
+	    var geocoder ;
+	    var beginDataLength = MapObjectArray.length ;
+	    alert('Exist Data Size：' + beginDataLength);
+
+	 	var mapNodeList = new Array();
+	 	
+ 	    function bdGEO(){
+		indexNo = 0;
+ 	    	geocoder = new google.maps.Geocoder() ;
+ 	 	    var googleMapObject = mapNodeList[indexNo];
+ 	 	    
+ 	 	    geocodeSearch(googleMapObject);
+  	 	    indexNo++;
+  	 	    beginDataLength++;
+  	 	}
+  	 	function geocodeSearch(googleMapObject){
+  	 	    if(indexNo < mapNodeList.length){
+  	 	        setTimeout(window.bdGEO,300);
+  	 	    } 
+	  	 	var currentLat; 
+			var dataTemplate = "";
+	 	 	geocoder.geocode({
+	 	        'address': googleMapObject.location
+	 	    }, function(results, status) {
+	 	        if (status === google.maps.GeocoderStatus.OK) {
+	 	        	 currentLat = results[0].geometry.location;
+
+	 	        	 var currentLatLng = currentLat.lat() + "," + currentLat.lng();
+	 	        	 
+	 	        	 dataTemplate = 'var mapData'+beginDataLength+'= new MapObject("'+ googleMapObject.location +'","'+
+	 	        		 				googleMapObject.videoURL +'","'+ googleMapObject.imageURL +'","'+ googleMapObject.title +'","'+ googleMapObject.date 
+	 	        	 					+'","'+ googleMapObject.tag +'","'+ googleMapObject.control +'","'+ currentLatLng +'");<br>';  
+
+	 	            $("#parseMapArrayDiv").append(",mapData"+beginDataLength);
+					$("#parseMapObjectDiv").append(dataTemplate);
+					
+	 	 	    } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {    
+		    	          
+	 	        } else {
+	 	            alert("Geocode was not successful for the following reason:" + status);
+	 	        }
+	 	    });  
+  	 	}
+  		var yourMapURLsFilePath = prompt("Please Input your MapURLsFile Path :"); 
+  		//var yourMapURLsFilePath = "D:\\Book1.xlsx"; 
+  		
+    	if(yourMapURLsFilePath == '' || yourMapURLsFilePath == 'undefined') {
+    		alert('yourMapURLsFilePath can not be null !! Please refresh and do it again ');
+    	} else {
+    	    var oXL = new ActiveXObject("Excel.Application");   
+			var oWB = oXL.Workbooks.open(yourMapURLsFilePath);  
+			oWB.worksheets(1).select();  
+			var oSheet = oWB.ActiveSheet;  
+			var colcount=oWB.Worksheets(1).UsedRange.Cells.Rows.Count;  
+			var colcolumn=oWB.Worksheets(1).UsedRange.Columns.Count;  
+			try  {  
+				alert("Extract Excel Data....And Analysis , Please wait patiently...");  
+				for (var j=2; j<=colcount; j++)  {
+					var currentMapObject ;
+				    for (var i=1; i<=colcolumn; i++) {  
+				    	 //  document.write(oSheet.Cells(j,i).value + ",");  
+				    	  var location = oSheet.Cells(j,1).value;
+				    	  var title = oSheet.Cells(j,2).value;
+				    	  var date = oSheet.Cells(j,3).value;
+				    	  var tag = oSheet.Cells(j,4).value;
+				    	  var videoUrl = oSheet.Cells(j,5).value;
+				    	  var imageUrl = oSheet.Cells(j,6).value;
+				    	  var control = oSheet.Cells(j,7).value;
+				    	   
+						 currentMapObject = new MapObject(location,videoUrl,imageUrl,title,date,tag,control,'');
+				    }  
+					 mapNodeList.push(currentMapObject);
+				}  
+			} catch(e) {  
+			    oWB.close();  
+			}  
+			 
+			alert("Extract Excel Data Success , Data Size : " + mapNodeList.length + "");
+    	}
+    	/****geo location****/
+    	//alert("Extract Excel Data Success , Data Size : " + mapNodeList.length + ", Now Prase the location coordinate from Google Map,Please wait patiently....");  
+    // 	bdGEO();
+  </script>
+  <body>
+  	  <div id="parseMapArrayDiv" ></div>
+  	  <input type="button" value="begin map geocode " onclick="bdGEO()" /> 
+      <div id="parseMapObjectDiv" ></div>
+  </body>
+</html>
