@@ -384,7 +384,7 @@ unregister_widget('featured_user_widget');
  * @param  string $payment_id       Payment ID
  * @return string                   Transaction ID
  */
-function edd_paypal_get_payment_transaction_id( $payment_id ) {
+function aihrus_paypal_get_payment_transaction_id( $payment_id ) {
 
 	$transaction_id = '';
 	$notes = edd_get_payment_notes( $payment_id );
@@ -398,6 +398,6 @@ function edd_paypal_get_payment_transaction_id( $payment_id ) {
 
 	return apply_filters( 'edd_paypal_set_payment_transaction_id', $transaction_id, $payment_id );
 }
-add_filter( 'edd_get_payment_transaction_id-paypal', 'edd_paypal_get_payment_transaction_id', 10, 1 );
+add_filter( 'edd_get_payment_transaction_id-paypal', 'aihrus_paypal_get_payment_transaction_id', 10, 1 );
 
 ?>
