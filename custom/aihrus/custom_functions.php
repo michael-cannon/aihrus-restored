@@ -235,7 +235,7 @@ function aihrus_edd_discount_field() {
 		return; // Only show once a payment method has been selected if ajax is disabled
 
 	if ( edd_has_active_discounts() && edd_get_cart_total() ) {
-	?>
+?>
 	<fieldset id="edd_discount_code">
 		<span><legend><?php _e( 'Have a Discount Code?', 'edd' ); ?></legend></span>
 		<p id="edd_show_discount" style="display:none;">
@@ -250,7 +250,7 @@ function aihrus_edd_discount_field() {
 			<input class="edd-input" type="text" id="edd-discount" name="edd-discount" placeholder="<?php _e( 'Enter discount', 'edd' ); ?>"/>
 		</p>
 	</fieldset>
-	<?php
+<?php
 	}
 }
 
@@ -296,7 +296,7 @@ function aihrus_edd_sl_renewal_form() {
 			<?php endif; ?>
 		</fieldset>
 	</form>
-	<?php
+<?php
 	echo ob_get_clean();
 }
 
@@ -316,21 +316,21 @@ function aihrus_edd_payment_mode_select() {
 			<?php do_action( 'edd_payment_mode_before_gateways_wrap' ); ?>
 			<div id="edd-payment-mode-wrap">
 				<span><legend><?php _e( 'Select Payment Method', 'edd' ); ?></legend></span>
-				<?php
+<?php
 
-				do_action( 'edd_payment_mode_before_gateways' );
+	do_action( 'edd_payment_mode_before_gateways' );
 
-				foreach ( $gateways as $gateway_id => $gateway ) :
-					$checked = checked( $gateway_id, edd_get_default_gateway(), false );
-					$checked_class = $checked ? ' edd-gateway-option-selected' : '';
-					echo '<label for="edd-gateway-' . esc_attr( $gateway_id ) . '" class="edd-gateway-option' . $checked_class . '" id="edd-gateway-option-' . esc_attr( $gateway_id ) . '">';
-					echo '<input type="radio" name="payment-mode" class="edd-gateway" id="edd-gateway-' . esc_attr( $gateway_id ) . '" value="' . esc_attr( $gateway_id ) . '"' . $checked . '>' . esc_html( $gateway['checkout_label'] );
-					echo '</label>';
-				endforeach;
+	foreach ( $gateways as $gateway_id => $gateway ) :
+		$checked = checked( $gateway_id, edd_get_default_gateway(), false );
+	$checked_class = $checked ? ' edd-gateway-option-selected' : '';
+	echo '<label for="edd-gateway-' . esc_attr( $gateway_id ) . '" class="edd-gateway-option' . $checked_class . '" id="edd-gateway-option-' . esc_attr( $gateway_id ) . '">';
+	echo '<input type="radio" name="payment-mode" class="edd-gateway" id="edd-gateway-' . esc_attr( $gateway_id ) . '" value="' . esc_attr( $gateway_id ) . '"' . $checked . '>' . esc_html( $gateway['checkout_label'] );
+	echo '</label>';
+endforeach;
 
-				do_action( 'edd_payment_mode_after_gateways' );
+do_action( 'edd_payment_mode_after_gateways' );
 
-				?>
+?>
 			</div>
 			<?php do_action( 'edd_payment_mode_after_gateways_wrap' ); ?>
 		</fieldset>
@@ -343,7 +343,7 @@ function aihrus_edd_payment_mode_select() {
 	</form>
 	<?php } ?>
 	<div id="edd_purchase_form_wrap"></div><!-- the checkout fields are loaded into this-->
-	<?php do_action('edd_payment_mode_bottom');
+<?php do_action('edd_payment_mode_bottom');
 }
 
 
@@ -375,5 +375,29 @@ $func = function ($a) {
 // add_filter( 'pre_site_transient_update_themes', $func );
 
 unregister_widget('featured_user_widget');
+
+
+/**
+ * Given a Payment ID, extract the transaction ID
+ *
+ * @since  2.1
+ * @param  string $payment_id       Payment ID
+ * @return string                   Transaction ID
+ */
+function edd_paypal_get_payment_transaction_id( $payment_id ) {
+
+	$transaction_id = '';
+	$notes = edd_get_payment_notes( $payment_id );
+
+	foreach ( $notes as $note ) {
+		if ( preg_match( '/^PayPal Transaction ID: ([^\s]+)/', $note->comment_content, $match ) ) {
+			$transaction_id = $match[1];
+			continue;
+		}
+	}
+
+	return apply_filters( 'edd_paypal_set_payment_transaction_id', $transaction_id, $payment_id );
+}
+add_filter( 'edd_get_payment_transaction_id-paypal', 'edd_paypal_get_payment_transaction_id', 10, 1 );
 
 ?>
