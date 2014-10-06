@@ -376,28 +376,69 @@ $func = function ($a) {
 
 unregister_widget('featured_user_widget');
 
-
-/**
- * Given a Payment ID, extract the transaction ID
- *
- * @since  2.1
- * @param  string $payment_id       Payment ID
- * @return string                   Transaction ID
- */
-function aihrus_paypal_get_payment_transaction_id( $payment_id ) {
-
-	$transaction_id = '';
-	$notes = edd_get_payment_notes( $payment_id );
-
-	foreach ( $notes as $note ) {
-		if ( preg_match( '/^PayPal Transaction ID: ([^\s]+)/', $note->comment_content, $match ) ) {
-			$transaction_id = $match[1];
-			continue;
+// gist https://gist.github.com/michael-cannon/b8b5f1e3925fd918f534
+// tests
+// TWP http://aihrus.localhost/checkout/?edd_license_key=9499c673384035e2fcfa148ffd5a227d&download_id=14714
+// WPSEO CBQE http://aihrus.localhost/checkout/?edd_license_key=9fdc2b216fa170570a07f9919be21957&download_id=19963
+// CBQEP http://aihrus.localhost/checkout/?edd_license_key=3c94b00010856765fe1ae63ba07fb3fe&download_id=17383
+add_filter( 'edd_add_to_cart_item', 'aihrus_add_to_cart_item' );
+function aihrus_add_to_cart_item( $item ) {
+	if ( empty( $_GET['edd_license_key'] ) ) {
+		return $item;
+	} else {
+		$license = ! empty( $_GET['edd_license_key'] ) ? sanitize_text_field( $_GET['edd_license_key'] ) : false;
+		if ( ! $license ) {
+			return $item;
 		}
 	}
 
-	return apply_filters( 'edd_paypal_set_payment_transaction_id', $transaction_id, $payment_id );
-}
-add_filter( 'edd_get_payment_transaction_id-paypal', 'aihrus_paypal_get_payment_transaction_id', 10, 1 );
+	$license_id = edd_software_licensing()->get_license_by_key( $license );
+	if ( empty( $license_id ) ) {
+		return $item;
+	}
 
+	$download_id = ! empty( $_GET['download_id'] ) ? absint( $_GET['download_id'] ) : false;
+	if ( empty( $download_id ) ) {
+		return $item;
+	}
+
+	$payment_id   = get_post_meta( $license_id, '_edd_sl_payment_id', true );
+	$cart_details = edd_get_payment_meta_cart_details( $payment_id, true );
+	if ( empty( $cart_details ) ) {
+		return $item;
+	}
+
+	$base_prices = array(
+		14714 => 29.99,
+		17383 => 39.99,
+		19963 => 14.99,
+	);
+	$base_price  = $base_prices[ $download_id ];
+
+	$price_ids = array(
+		14714 => 3,
+		17383 => 3,
+		19963 => 3,
+	);
+	$price_id  = $price_ids[ $download_id ];
+	foreach ( $cart_details as $key => $detail ) {
+		if ( empty( $detail['id'] ) || $download_id != $detail['id'] ) {
+			continue;
+		}
+
+		if ( empty( $detail['price'] ) ) {
+			continue;
+		}
+
+		$price   = $detail['price'];
+		$compare = bccomp( $base_price, $price, 2 );
+		if ( 1 == $compare ) {
+			$item['options']['price_id'] = $price_id;
+		} elseif ( 0 == $compare ) {
+			$item['options']['price_id'] = $price_id;
+		}
+	}
+
+	return $item;
+}
 ?>
