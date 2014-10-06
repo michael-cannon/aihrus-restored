@@ -408,6 +408,7 @@ function aihrus_add_to_cart_item( $item ) {
 		return $item;
 	}
 
+	// current single site pricing by product
 	$base_prices = array(
 		14714 => 29.99,
 		17383 => 39.99,
@@ -415,12 +416,14 @@ function aihrus_add_to_cart_item( $item ) {
 	);
 	$base_price  = $base_prices[ $download_id ];
 
+	// current single site position in options, 0 is first so 3 is fourth
 	$price_ids = array(
 		14714 => 3,
 		17383 => 3,
 		19963 => 3,
 	);
 	$price_id  = $price_ids[ $download_id ];
+
 	foreach ( $cart_details as $key => $detail ) {
 		if ( empty( $detail['id'] ) || $download_id != $detail['id'] ) {
 			continue;
@@ -441,4 +444,5 @@ function aihrus_add_to_cart_item( $item ) {
 
 	return $item;
 }
+
 ?>
