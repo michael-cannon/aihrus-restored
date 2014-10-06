@@ -424,6 +424,7 @@ function aihrus_add_to_cart_item( $item ) {
 	);
 	$price_id  = $price_ids[ $download_id ];
 
+	$changed_price_id = false;
 	foreach ( $cart_details as $key => $detail ) {
 		if ( empty( $detail['id'] ) || $download_id != $detail['id'] ) {
 			continue;
@@ -437,9 +438,20 @@ function aihrus_add_to_cart_item( $item ) {
 		$compare = bccomp( $base_price, $price, 2 );
 		if ( 1 == $compare ) {
 			$item['options']['price_id'] = $price_id;
+			
+			$changed_price_id = true;
 		} elseif ( 0 == $compare ) {
 			$item['options']['price_id'] = $price_id;
+			
+			$changed_price_id = true;
 		}
+	}
+	
+	if ( $changed_price_id ) {
+		global $edd_options;
+
+		// on WP Engine gotta love their superpowered caching…
+		$edd_options['edd_sl_renewal_discount'] /= 8;
 	}
 
 	return $item;
