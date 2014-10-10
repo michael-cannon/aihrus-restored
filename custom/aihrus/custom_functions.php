@@ -215,13 +215,12 @@ function aihrus_option_siteurl( $siteurl ) {
 
 define( 'EDD_BYPASS_NAME_CHECK', true );
 
-// add_filter( 'wp_mail_from', 'aihrus_mail_from' );
+add_filter( 'wp_mail_from', 'aihrus_mail_from' );
 function aihrus_mail_from( $email ) {
-	// NOTE: replace [at] with @. This was causing problems with the syntax highlighter.
 	return 'support@aihr.us';
 }
 
-// add_filter( 'wp_mail_from_name', 'aihrus_mail_from_name' );
+add_filter( 'wp_mail_from_name', 'aihrus_mail_from_name' );
 function aihrus_mail_from_name( $name ) {
 	return 'Aihrus Support';
 }
@@ -423,6 +422,10 @@ function aihrus_add_to_cart_item( $item ) {
 		19963 => 3,
 	);
 	$price_id  = $price_ids[ $download_id ];
+	
+	// for some reason or another, despite changing the item added to the cart before license discounting, the discount is wrong. The factor number is inline with my pricing strategy of doubling the price per licensing level. In the end, it works.
+	$renewal_discount = 20;
+	$discount_factor  = 8;
 
 	$changed_price_id = false;
 	foreach ( $cart_details as $key => $detail ) {
@@ -451,7 +454,7 @@ function aihrus_add_to_cart_item( $item ) {
 		global $edd_options;
 
 		// on WP Engine gotta love their superpowered caching…
-		$edd_options['edd_sl_renewal_discount'] /= 8;
+		$edd_options['edd_sl_renewal_discount'] = $renewal_discount/$discount_factor;
 	}
 
 	return $item;
