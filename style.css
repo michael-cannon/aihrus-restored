@@ -26,3 +26,11 @@ Template: restored
     margin: 0;
     width: 400px;
 }
+
+dt {
+	font-weight: bold;
+}
+
+dd {
+	margin-left: 40px;
+}
