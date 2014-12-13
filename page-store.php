@@ -19,13 +19,13 @@ get_header(); ?>
         }      
 	$temp = $wp_query;
 	$args = array(
-		'paged' => $paged,
-		'post_type' => 'download',
 		'meta_key' => '_edd_download_sales',
 		'meta_value_num' => '_edd_download_sales',
-		'posts_per_page' => stripslashes( of_get_option('products_total') ),
-		'orderby' => 'meta_value_num',
 		'order' => 'DESC',
+		'orderby' => 'meta_value_num',
+		'paged' => $paged,
+		'posts_per_page' => stripslashes( of_get_option('products_total') ),
+		'post_type' => 'download',
 	);
 	$wp_query = new WP_Query( $args );
 	if ( $wp_query->have_posts() ) : ?>
