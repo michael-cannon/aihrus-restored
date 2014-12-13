@@ -18,7 +18,7 @@ $args = array(
 	'order' => 'DESC',
 	'orderby' => 'meta_value_num',
 	'paged' => $paged,
-	'posts_per_page' => stripslashes( of_get_option('products_total') ),
+	'posts_per_page' => stripslashes( of_get_option('home_products_total') ),
 	'post_type' => 'download',
 );
 $query_default = new WP_Query( $args );
