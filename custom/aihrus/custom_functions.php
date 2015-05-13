@@ -375,6 +375,7 @@ $func = function ($a) {
 
 unregister_widget('featured_user_widget');
 
+// try to prevent old cheap license purchases from getting charged unlimited
 // gist https://gist.github.com/michael-cannon/b8b5f1e3925fd918f534
 // tests
 // TWP http://aihrus.localhost/checkout/?edd_license_key=9499c673384035e2fcfa148ffd5a227d&download_id=14714
